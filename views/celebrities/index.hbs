@@ -1,0 +1,10 @@
+{{#each data}}
+<h2>{{this.name}}</h2>
+<a href="/celebrities/{{ this.id }}">
+  <p>More info on {{this.name}}</p>
+</a>
+
+<form action="celebrities/{{ this.id }}/delete" method="POST">
+  <button>Delete</button>
+</form>
+{{/each}}
