@@ -58,4 +58,30 @@ celebrityRouter.get('/:id', (req, res, next) => {
     });
 });
 
+celebrityRouter.get('/:id/edit', (req, res, next) => {
+  const id = req.params.id;
+  Celebrity.findById(id)
+    .then(celebrity => {
+      res.render('celebrities/edit', { celebrity: celebrity });
+    })
+    .catch(err => {
+      next(err);
+    });
+});
+
+celebrityRouter.post('/:id', (req, res, next) => {
+  const data = req.body;
+  const id = req.params.id;
+
+  Celebrity.findByIdAndUpdate(id, {
+    name: data.name,
+    occupation: data.occupation,
+    catchPhrase: data.catchPhrase
+  })
+    .then(res.redirect('/'))
+    .catch(err => {
+      next(err);
+    });
+});
+
 module.exports = celebrityRouter;
